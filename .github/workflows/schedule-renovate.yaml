@@ -25,7 +25,7 @@ on:
 env:
   LOG_LEVEL: debug
   RENOVATE_DRY_RUN: false
-  RENOVATE_CONFIG_FILE: .github/renovate-bot.json5
+  RENOVATE_CONFIG_FILE: .renovaterc.json5
 
 jobs:
   renovate:
