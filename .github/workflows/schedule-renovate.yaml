@@ -70,7 +70,7 @@ jobs:
         run: |
           echo "RENOVATE_DRY_RUN=${{ github.event.inputs.dryRun || env.RENOVATE_DRY_RUN }}" >> "${GITHUB_ENV}"
           echo "LOG_LEVEL=${{ github.event.inputs.logLevel || env.LOG_LEVEL }}" >> "${GITHUB_ENV}"
-          echo "RENOVATE_AUTODISCOVER_FILTER: ${{ github.repository_owner }}/${{ inputs.autodiscoverFilter || '*' }}" >> "${GITHUB_ENV}"
+          echo "RENOVATE_AUTODISCOVER_FILTER=${{ github.repository_owner }}/${{ github.event.inputs.autodiscoverFilter || '*' }}" >> "${GITHUB_ENV}"
 
       # https://github.com/marketplace/actions/renovate-bot-github-action
       - name: Renovate
