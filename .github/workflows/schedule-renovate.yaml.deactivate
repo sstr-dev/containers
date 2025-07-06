@@ -30,8 +30,8 @@ env:
 jobs:
   renovate:
     name: Renovate
-    #runs-on: ubuntu-latest
-    runs-on: arc-runner-set-faiph-dev
+    runs-on: ubuntu-latest
+    #runs-on: arc-runner-set-faiph-dev
     steps:
       # # https://github.com/marketplace/actions/github-app-token
       # - name: Harden Runner
