@@ -39,6 +39,12 @@ jobs:
       #   with:
       #     egress-policy: audit
 
+      - name: Early exit if not gznzeus on issues or pull_request
+        if: ${{ (github.event_name == 'issues' || github.event_name == 'pull_request') && github.event.sender.login != 'gznzeus' }}
+        run: |
+          echo "Not gznzeus, exiting early."
+          exit 0
+
       # https://github.com/marketplace/actions/create-github-app-token
       - name: Generate Token
         uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
