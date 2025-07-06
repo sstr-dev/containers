@@ -27,7 +27,7 @@ on:
       - .github/workflows/schedule-renovate.yaml
 
 env:
-  LOG_LEVEL: debug
+  LOG_LEVEL: info
   RENOVATE_DRY_RUN: false
   RENOVATE_CONFIG_FILE: .renovaterc.json5
   RENOVATE_PLATFORM: github
