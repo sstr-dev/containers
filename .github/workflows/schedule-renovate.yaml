@@ -13,6 +13,10 @@ on:
         description: Log-Level
         default: info
         required: false
+      autodiscoverFilter:
+        description: Autodiscover Filter
+        default: "*"
+        required: false
   schedule:
     - cron: "0 * * * *"
   push:
@@ -26,7 +30,10 @@ env:
   LOG_LEVEL: debug
   RENOVATE_DRY_RUN: false
   RENOVATE_CONFIG_FILE: .renovaterc.json5
-
+  RENOVATE_PLATFORM: github
+  RENOVATE_PLATFORM_COMMIT: true
+  RENOVATE_AUTODISCOVER: true
+  RENOVATE_INTERNAL_CHECKS_FILTER: strict
 jobs:
   renovate:
     name: Renovate
@@ -63,6 +70,7 @@ jobs:
         run: |
           echo "RENOVATE_DRY_RUN=${{ github.event.inputs.dryRun || env.RENOVATE_DRY_RUN }}" >> "${GITHUB_ENV}"
           echo "LOG_LEVEL=${{ github.event.inputs.logLevel || env.LOG_LEVEL }}" >> "${GITHUB_ENV}"
+          echo "RENOVATE_AUTODISCOVER_FILTER: ${{ github.repository_owner }}/${{ inputs.autodiscoverFilter || '*' }}" >> "${GITHUB_ENV}"
 
       # https://github.com/marketplace/actions/renovate-bot-github-action
       - name: Renovate
@@ -70,14 +78,14 @@ jobs:
         with:
           configurationFile: "${{ env.RENOVATE_CONFIG_FILE }}"
           token: "${{ steps.app-token.outputs.token }}"
-        env:
-          RENOVATE_PRINT_CONFIG: "true"
-          RENOVATE_HOST_RULES: |
-            [
-              {
-                matchHost: "docker.io",
-                hostType: "docker",
-                username: "${{ secrets.DOCKER_IO_USER }}",
-                password: "${{ secrets.DOCKER_IO_TOKEN }}",
-              },
-            ]
+        #env:
+        #  RENOVATE_PRINT_CONFIG: "true"
+        #  RENOVATE_HOST_RULES: |
+        #    [
+        #      {
+        #        matchHost: "docker.io",
+        #        hostType: "docker",
+        #        username: "${{ secrets.DOCKER_IO_USER }}",
+        #        password: "${{ secrets.DOCKER_IO_TOKEN }}",
+        #      },
+        #    ]
