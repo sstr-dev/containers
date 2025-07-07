@@ -18,7 +18,8 @@ on:
         default: "*"
         required: false
   schedule:
-    - cron: "0 * * * *"
+    #- cron: "0 * * * *" # Run every hour
+    - cron: "0 */6 * * *" # Run every 6 hours
   push:
     branches:
       - main
