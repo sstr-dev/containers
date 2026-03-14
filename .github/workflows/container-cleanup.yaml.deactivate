@@ -1,0 +1,70 @@
+# This workflow runs on certain conditions to check for and potentially
+# delete container images from the GHCR which no longer have an associated
+# code branch.
+# Requires a PAT with the correct scope set in the secrets.
+#
+# This workflow will not trigger runs on forked repos.
+
+name: Container Cleanup
+
+on:
+  pull_request:
+    types:
+      - "closed"
+  push:
+    paths:
+      - ".github/workflows/container-cleanup.yaml"
+  schedule:
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: registry-tags-cleanup
+  cancel-in-progress: false
+
+jobs:
+  cleanup-untagged-images:
+    name: Cleanup Untagged Images Tags for ${{ matrix.primary-name }}
+    runs-on: ubuntu-24.04
+    permissions:
+      packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - primary-name: "actions-runner"
+          - primary-name: "cloudflared"
+          - primary-name: "dmarc-report"
+          - primary-name: "excalidraw"
+          - primary-name: "filebrowser"
+          - primary-name: "goldpinger"
+          - primary-name: "kubectl"
+          - primary-name: "kubernetes-kubectl"
+          - primary-name: "maddy"
+          - primary-name: "onepassword-connect-api"
+          - primary-name: "onepassword-sync"
+          - primary-name: "openweathermap-exporter"
+          - primary-name: "openweathermap_exporter"
+          - primary-name: "postgres-init"
+          - primary-name: "prometheus-dnssec-exporter"
+          - primary-name: "rsync"
+          - primary-name: "smartctl_exporter"
+          - primary-name: "syncthing"
+          - primary-name: "tplink-plug-exporter"
+          - primary-name: "ubuntu"
+          - primary-name: "volsync"
+          - primary-name: "weather_exporter"
+          - primary-name: "x509-certificate-exporter"
+    env:
+      # Requires a personal access token with the OAuth scope delete:packages
+      TOKEN: ${{ secrets.PACKAGE_DELETE_TOKEN }}
+    steps:
+      - name: Clean untagged images
+        if: "${{ env.TOKEN != '' }}"
+        uses: stumpylog/image-cleaner-action/untagged@4fe057d991d63b8f6d5d22c40f17c1bca2226537 # v0.12.0
+        with:
+          token: "${{ env.TOKEN }}"
+          owner: ${{ github.repository_owner }}
+          do_delete: "true"
+          is_org: "false"
+          package_name: "${{ matrix.primary-name }}"

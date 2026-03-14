@@ -1,4 +1,5 @@
 .bin
 .tmp
 .private
+.cache
 docker-bake.json

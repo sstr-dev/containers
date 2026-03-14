@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
-
-FROM docker.io/library/alpine:3.22
+ARG VERSION
+FROM docker.io/library/postgres:${VERSION}
 ARG VERSION
 USER root
 RUN \
@@ -8,8 +8,9 @@ RUN \
         bash \
         ca-certificates \
         catatonit \
-        postgresql17-client=="${VERSION}" \
     && rm -rf /tmp/*
-COPY . /
+COPY ./resources/list_dbs.sh /list_dbs.sh
+COPY ./resources/entrypoint.sh /entrypoint.sh
+#COPY ./scripts /scripts
 USER nobody:nogroup
 ENTRYPOINT ["/usr/bin/catatonit", "--", "/entrypoint.sh"]
