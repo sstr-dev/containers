@@ -1,20 +1,5 @@
 #!/usr/bin/env bash
 
-# Pre-validate the environment
-if [ "${DB_NAMES}" = "**None**" -a "${DB_NAMES_FILE}" = "**None**" ]; then
-  echo "You need to set the DB_NAMES or DB_NAMES_FILE environment variable."
-  exit 1
-fi
-
-if [ "${DB_NAMES_FILE}" = "**None**" ]; then
-  DBS=$(echo "${DB_NAMES}" | tr , " ")
-elif [ -r "${DB_NAMES_FILE}" ]; then
-  DBS=$(cat "${DB_NAMES_FILE}")
-else
-  echo "Missing DB_NAMES_FILE file."
-  exit 1
-fi
-
 export DB_TYPE="${DB_TYPE:-postgres}"
 export BACKUP_DIR="${BACKUP_DIR:-/backups}"
 export BACKUP_SUFFIX="${BACKUP_SUFFIX:-.sql.gz}"
@@ -121,7 +106,6 @@ KEEP_MONTHS=`expr $(((${BACKUP_KEEP_MONTHS} * 31) + 1))`
 
 # Validate backup dir
 if [ '!' -d "${BACKUP_DIR}" -o '!' -w "${BACKUP_DIR}" -o '!' -x "${BACKUP_DIR}" ]; then
-  echo "BACKUP_DIR points to a file or folder with insufficient permissions."
-  exit 1
+    echo "BACKUP_DIR points to a file or folder with insufficient permissions."
+    exit 1
 fi
-
