@@ -1,10 +1,7 @@
 # Security Policy
 
+🛡️ Found a security issue in a this project? Read on.
+
 ## Reporting a Vulnerability
 
-If you find a significant vulnerability, or evidence of one, please report it privately.
-
-Vulnerabilities should be reported using [GitHub's mechanism for privately reporting a vulnerability](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability). Under the
-[main repository's security tab](https://github.com/home-operations/containers/security), click "Report a vulnerability" to open the advisory form.
-
-A member of this organization will triage the reported vulnerability and if the vulnerability is accepted a security advisory will be published and all further communication will be done via that security advisory.
+To report a vulnerability via GitHub issues, click on the `Issues` tab at the top of any repository and then click on the `New issue` button.
