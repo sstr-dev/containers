@@ -3,3 +3,5 @@
 .private
 .cache
 docker-bake.json
+.local
+.codex
