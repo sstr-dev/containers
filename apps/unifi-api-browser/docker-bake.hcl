@@ -6,7 +6,7 @@ variable "APP" {
 
 variable "VERSION" {
   // renovate: datasource=github-releases depName=Art-of-WiFi/UniFi-API-browser
-  default = "v3.0.0"
+  default = "v3.1.0"
 }
 
 variable "SOURCE" {
