@@ -84,7 +84,8 @@
       description: ["Allowed Ubuntu Version for Base Images"],
       matchDatasources: ["docker"],
       matchPackageNames: ["/ubuntu/"],
-      allowedVersions: "/24\\.04/",
+      // tags are <codename>-<date>, e.g. noble-20250127
+      allowedVersions: "/^noble-/",
     },
     {
       description: ["Allowed Alpine Version for Base Images"],
