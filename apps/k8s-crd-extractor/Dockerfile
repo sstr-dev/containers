@@ -8,7 +8,7 @@ ENV \
     UV_NO_CACHE=true \
     UV_EXTRA_INDEX_URL="https://wheel-index.linuxserver.io/alpine-3.23/"
 
-COPY --from=ghcr.io/astral-sh/uv:0.13.9 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.13.10 /uv /uvx /bin/
 
 #hadolint ignore=DL3018
 RUN \
