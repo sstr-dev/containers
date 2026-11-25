@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Job image for the Forgejo runner (runner-k8s-plugin).
-FROM docker.io/gitea/runner-images:ubuntu-26.04@sha256:433d703e6214e93234583ecc9cbec0b30fb5691259b0581597aaede21b031f8b
+FROM docker.io/gitea/runner-images:ubuntu-26.04@sha256:203ba5eff144b485821fc41c47f29ed24333304660e953e8983b9b852e013ca0
 
 ARG TARGETARCH
 
